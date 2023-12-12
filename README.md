@@ -63,7 +63,7 @@ mkdir -p ~/esim_ws/src
 Clone this repository into the source space of the workspace with:
 ```bash
 cd ~/esim_ws/src
-git clone https://github.com/wengflow/rpg_esim.git
+git clone https://github.com/SuperFCR/rpg_esim.git
 ```
 
 We also recommend using [Conda](https://docs.conda.io/en/latest/) to set up an environment with the appropriate dependencies for running ESIM, as follows:
