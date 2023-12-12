@@ -1,8 +1,14 @@
 # ESIM: an Open Event Camera Simulator
 
-This repository contains the source code for the improved [ESIM](https://rpg.ifi.uzh.ch/esim.html) event camera simulator used in **Robust *e*-NeRF** <sub>[![Project Page](https://img.shields.io/badge/Project_Page-black
+<!-- This repository contains the source code for the improved [ESIM](https://rpg.ifi.uzh.ch/esim.html) event camera simulator used in **Robust *e*-NeRF** <sub>[![Project Page](https://img.shields.io/badge/Project_Page-black
 )](https://wengflow.github.io/robust-e-nerf) [![arXiv](https://img.shields.io/badge/arXiv-black)](https://arxiv.org/abs/2309.08596) [![Code](https://img.shields.io/badge/Code-black)](https://github.com/wengflow/robust-e-nerf) [![Dataset](https://img.shields.io/badge/Dataset-black
-)](https://huggingface.co/datasets/wengflow/robust-e-nerf)</sub>. In particular, we incorporate the following changes:
+)](https://huggingface.co/datasets/wengflow/robust-e-nerf)</sub>. In particular, we incorporate the following changes: -->
+
+
+This repository contains the source code for the improved [ESIM](https://rpg.ifi.uzh.ch/esim.html) event camera simulator used in **Great*e*-NeRF** 
+<sub>[![Project Page](https://img.shields.io/badge/Project_Page-black
+)]() [![arXiv](https://img.shields.io/badge/arXiv-black)]() [![Code](https://img.shields.io/badge/Code-black)]() [![Dataset](https://img.shields.io/badge/Dataset-black)]()</sub>.
+In particular, we incorporate the following changes:
 
 1. Event simulation model
    - Improve the overall event simulation accuracy by accounting for additional edge cases 
@@ -12,8 +18,7 @@ This repository contains the source code for the improved [ESIM](https://rpg.ifi
    - Modify the pixel-to-pixel contrast threshold variation model to be time-independent
    - Merge `feature/color` branch to support color event cameras
 2. Rendering engine
-   - Support [Blender](https://www.blender.org) as a rendering engine
-   - Support [Unreal Engine](https://www.unrealengine.com) 4.27.2 with a modified [UnrealCV](https://unrealcv.org/) plugin
+   - Support [Blender](https://www.blender.org) as a rendering engine specially for blender 4.0 above.
 3. Camera trajectory
    - Circumvent singularities in interpolating quaternion orientations by supporting rotation vector/angle-axis orientation representation in the trajectory CSV for interpolation
 4. Miscellaneous
@@ -22,12 +27,7 @@ This repository contains the source code for the improved [ESIM](https://rpg.ifi
 If you use this improved version of ESIM for your work, please cite:
 
 ```bibtex
-@inproceedings{low2023_robust-e-nerf,
-  title = {Robust e-NeRF: NeRF from Sparse & Noisy Events under Non-Uniform Motion},
-  author = {Low, Weng Fei and Lee, Gim Hee},
-  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-  year = {2023}
-}
+Template
 ```
 
 ```bibtex
@@ -40,8 +40,18 @@ If you use this improved version of ESIM for your work, please cite:
 ```
 
 ## Installation
+The following installation steps were tested on Ubuntu 20.04 and 22.04 with GTX4060Ti 16GB , GTX 4090, RTX 3090 and RTX A6000 GPUs.
 
-The following installation steps were tested on Ubuntu 20.04 and 22.04 with GTX 1080 Ti, RTX 3090 and RTX A5000 GPUs.
+### ROS Installation
+We highly recommend you to install according to the [ROS Wiki](https://wiki.ros.org/ROS/Installation),and here is a one-click concise Chinese method if you don't want to spend much time in it.
+```bash
+ wget http://fishros.com/install -O fishros && . fishros
+```
+This is a powerful tool that supports:
+
+- One-click installation: ROS (supports ROS and ROS2, Raspberry Pi Jetson), VsCode (supports amd64 and arm64), github desktop version, nodejs development environment
+
+- One-click configuration: rosdep (fast and easy to use), ROS environment (quickly update ROS environment settings, automatically generate environment selection), system source (change system source, support full version of Ubuntu system), Docker (support amd64 and arm64), cartographer, WeChat client
 
 ### ESIM
 
@@ -111,16 +121,12 @@ The installation steps described above were consolidated from the following sour
 
 To use Blender as the rendering engine, we require [Blender as a Python module](https://docs.blender.org/api/current/info_advanced_blender_as_bpy.html) being installed in a separate `blender` Conda environment with a compatible Python version and [PyZMQ](https://pyzmq.readthedocs.io/en/latest/) also installed.
 
-We provide a Python wheel for Blender 3.4.0 at [this link](https://github.com/wengflow/rpg_esim/releases/download/v1.0/bpy-3.4.0a0-cp310-cp310-manylinux_2_31_x86_64.whl), which is compiled with [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) 11.4 and [NVIDIA OptiX](https://developer.nvidia.com/rtx/ray-tracing/optix) 7.3.0 support (requires NVIDIA R465.84 driver or newer), for Linux and Python 3.10. The `blender` environment may be created with all the necessary dependencies, including this wheel, with the following:
+We provide a Python wheel for Blender 4.0.3 at [this link](https://github.com/wengflow/rpg_esim/releases/download/Released_v1.0/bpy-4.0.0-cp310-cp310-manylinux_2_28_x86_64.whl), which is compiled with [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) 11.3 and [NVIDIA OptiX](https://developer.nvidia.com/rtx/ray-tracing/optix) 7.3.0 support (requires NVIDIA R465.84 driver or newer), for Linux and Python 3.10. The `blender` environment may be created with all the necessary dependencies, including this wheel, with the following:
    ```bash
-   conda env create -f rpg_esim/blender_environment.yml
+   conda env create -f rpg_esim/blender_environment_4_0.yml
    ```
 
 Alternatively, build Blender as a Python module from source, according to the [official instructions](https://wiki.blender.org/w/index.php?title=Building_Blender/Other/BlenderAsPyModule), and install it via `pip` in the `blender` environment.
-
-### UnrealEngine and UnrealCV
-
-To use UnrealEngine as the rendering engine, first install UnrealEngine 4.27 ([Windows/Mac](https://docs.unrealengine.com/4.27/en-US/Basics/InstallingUnrealEngine/), [Linux](https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Linux/BeginnerLinuxDeveloper/SettingUpAnUnrealWorkflow/)). Then, build a compatible UnrealCV Plugin from [this modified source code](https://github.com/wengflow/unrealcv/tree/esim), according to the [official instructions](https://docs.unrealcv.org/en/master/plugin/install.html#compile-from-source-code).
 
 ## Using Blender as the Rendering Engine
 
@@ -141,7 +147,7 @@ First, start the Blender rendering server on a given port (*e.g.* 5555) with:
 ```bash
 cae
 roscd imp_blender_renderer
-conda activate blender
+conda activate blender_4_0
 python scripts/blender_bridge.py --port 5555
 ```
 
