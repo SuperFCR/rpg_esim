@@ -4,6 +4,7 @@
 #include <esim/imp_panorama_renderer/panorama_renderer.hpp>
 #include <esim/imp_opengl_renderer/opengl_renderer.hpp>
 #include <esim/imp_unrealcv_renderer/unrealcv_renderer.hpp>
+#include <esim/imp_blender_renderer/blender_renderer.hpp>
 #include <esim/imp_multi_objects_2d/imp_multi_objects_2d_renderer.hpp>
 #include <ze/cameras/camera_models.hpp>
 #include <ze/cameras/camera_impl.hpp>
@@ -11,7 +12,7 @@
 #include <opencv2/imgcodecs/imgcodecs.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-DEFINE_int32(renderer_type, 0, " 0: Planar renderer, 1: Panorama renderer, 2: OpenGL renderer");
+DEFINE_int32(renderer_type, 0, " 0: Planar renderer, 1: Panorama renderer, 2: OpenGL renderer, 3: UnrealCV renderer, 4: Blender renderer");
 
 DEFINE_string(renderer_texture, "",
               "Path to image which will be used to texture the plane");
@@ -73,7 +74,7 @@ bool loadPreprocessedImage(const std::string& path_to_img, cv::Mat* img)
 {
   CHECK(img);
   VLOG(1) << "Loading texture file from file: " << FLAGS_renderer_texture << ".";
-  *img = cv::imread(path_to_img, 0);
+  *img = cv::imread(path_to_img);
   if(!img->data)
   {
     LOG(FATAL) << "Could not open image at: " << FLAGS_renderer_texture << ".";
@@ -164,6 +165,11 @@ Renderer::Ptr loadRendererFromGflags()
         renderer.reset(new UnrealCvRenderer());
       break;
     }
+    case 4: // Blender renderer
+    {
+        renderer.reset(new BlenderRenderer());
+      break;
+    } 
     default:
     {
       LOG(FATAL) << "Renderer type is not known.";

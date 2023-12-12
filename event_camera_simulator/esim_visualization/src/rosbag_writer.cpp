@@ -80,13 +80,19 @@ void RosbagWriter::pointcloudCallback(const PointCloudVector& pointclouds, Time 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr msg (new pcl::PointCloud<pcl::PointXYZRGB>);
     std::stringstream ss; ss << "cam" << i;
     pointCloudToMsg(pointclouds[i], ss.str(), t, msg);
+
+    /**
+     * NOTE: Fix for `pcl` 1.11 (Reference: https://github.com/RoboStack/ros-noetic/issues/159)
+     **/
+    sensor_msgs::PointCloud2 rosMsg;
+    pcl::toROSMsg(*msg, rosMsg);
     bag_.write(getTopicName(topic_name_prefix_, i, "pointcloud"),
-               toRosTime(t), msg);
+               toRosTime(t), rosMsg);
   }
   last_published_pointcloud_time_ = t;
 }
 
-void RosbagWriter::imageCallback(const ImagePtrVector& images, Time t)
+void RosbagWriter::imageCallback(const ColorImagePtrVector& images, Time t)
 {
   for(size_t i=0; i<num_cameras_; ++i)
   {
@@ -110,7 +116,7 @@ void RosbagWriter::imageCallback(const ImagePtrVector& images, Time t)
   last_published_image_time_ = t;
 }
 
-void RosbagWriter::imageCorruptedCallback(const ImagePtrVector& images_corrupted, Time t)
+void RosbagWriter::imageCorruptedCallback(const ColorImagePtrVector& images_corrupted, Time t)
 {
   for(size_t i=0; i<num_cameras_; ++i)
   {
