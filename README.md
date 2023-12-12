@@ -55,7 +55,7 @@ This is a powerful tool that supports:
 
 ### ESIM
 
-We recommend creating a new Catkin workspace specifically for ESIM. We name the workspace as `esim_ws` and place it under the home directory, as follows:
+We recommend creating a new Catkin workspace specifically for ESIM. We name the workspace as `esim_ws` and place it under the home directory, as follows :
 ```bash
 mkdir -p ~/esim_ws/src
 ```
