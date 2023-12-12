@@ -173,3 +173,12 @@ rqt --perspective-file cfg/esim.perspective
 ```
 
 Please refer to the [ESIM wiki](https://github.com/uzh-rpg/rpg_esim/wiki) for further details on the usage of other rendering engines.
+
+
+
+if your want to generate the test of val dataset,you can use the code below:
+```bash
+conda activate blender
+python <your_file_path>/bpy_render_views.py
+```
+NOTE:Set the blender file path and render path is necessary!
