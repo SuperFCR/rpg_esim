@@ -18,7 +18,7 @@ In particular, we incorporate the following changes:
    - Modify the pixel-to-pixel contrast threshold variation model to be time-independent
    - Merge `feature/color` branch to support color event cameras
 2. Rendering engine
-   - Support [Blender](https://www.blender.org) as a rendering engine specially for blender 3.4~3.6 and 4.0 .
+   - Support [Blender](https://www.blender.org) as a rendering engine specially for blender 3.4~3.6 and 4.0.
 3. Camera trajectory
    - Circumvent singularities in interpolating quaternion orientations by supporting rotation vector/angle-axis orientation representation in the trajectory CSV for interpolation
 4. Miscellaneous
@@ -187,7 +187,7 @@ rqt --perspective-file cfg/esim.perspective
 
 Please refer to the [ESIM wiki](https://github.com/uzh-rpg/rpg_esim/wiki) for further details on the usage of other rendering engines.
 
-#### Test Set Making
+### Test Set Making
 
 if your want to generate the test of val dataset using blender 3.4 , you can use the code below:
 ```bash
