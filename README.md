@@ -18,7 +18,7 @@ In particular, we incorporate the following changes:
    - Modify the pixel-to-pixel contrast threshold variation model to be time-independent
    - Merge `feature/color` branch to support color event cameras
 2. Rendering engine
-   - Support [Blender](https://www.blender.org) as a rendering engine specially for blender 4.0 above.
+   - Support [Blender](https://www.blender.org) as a rendering engine specially for blender 3.4~3.6 and 4.0 .
 3. Camera trajectory
    - Circumvent singularities in interpolating quaternion orientations by supporting rotation vector/angle-axis orientation representation in the trajectory CSV for interpolation
 4. Miscellaneous
@@ -29,6 +29,16 @@ If you use this improved version of ESIM for your work, please cite:
 ```bibtex
 Template
 ```
+
+```bibtex
+@inproceedings{low2023_robust-e-nerf,
+  title = {Robust e-NeRF: NeRF from Sparse & Noisy Events under Non-Uniform Motion},
+  author = {Low, Weng Fei and Lee, Gim Hee},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year = {2023}
+}
+```
+
 
 ```bibtex
 @inproceedings{rebecq18_esim,
@@ -121,8 +131,9 @@ The installation steps described above were consolidated from the following sour
 
 To use Blender as the rendering engine, we require [Blender as a Python module](https://docs.blender.org/api/current/info_advanced_blender_as_bpy.html) being installed in a separate `blender` Conda environment with a compatible Python version and [PyZMQ](https://pyzmq.readthedocs.io/en/latest/) also installed.
 
-We provide a Python wheel for Blender 4.0.3 at [this link](https://github.com/wengflow/rpg_esim/releases/download/Released_v1.0/bpy-4.0.0-cp310-cp310-manylinux_2_28_x86_64.whl), which is compiled with [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) 11.3 and [NVIDIA OptiX](https://developer.nvidia.com/rtx/ray-tracing/optix) 7.3.0 support (requires NVIDIA R465.84 driver or newer), for Linux and Python 3.10. The `blender` environment may be created with all the necessary dependencies, including this wheel, with the following:
+We provide a Python wheel for Blender 3.4 and 4.0.3 at [this link](https://github.com/wengflow/rpg_esim/releases/download/Released_v1.0/bpy-4.0.0-cp310-cp310-manylinux_2_28_x86_64.whl), which is compiled with [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) 11.3 and [NVIDIA OptiX](https://developer.nvidia.com/rtx/ray-tracing/optix) 7.3.0 support (requires NVIDIA R465.84 driver or newer), for Linux and Python 3.10. The `blender` environment may be created with all the necessary dependencies, including this wheel, with the following:
    ```bash
+   conda env create -f rpg_esim/blender_environment.yml
    conda env create -f rpg_esim/blender_environment_4_0.yml
    ```
 
@@ -141,7 +152,9 @@ Configuration options for the Blender rendering engine are detailed at the top o
 
 A sample usage is provided in `cfg/blender.conf` of the `esim_ros` package.
 
-### Running ESIM with Blender
+
+### Training Dataset Making
+#### Running ESIM with Blender
 
 First, start the Blender rendering server on a given port (*e.g.* 5555) with:
 ```bash
@@ -174,11 +187,18 @@ rqt --perspective-file cfg/esim.perspective
 
 Please refer to the [ESIM wiki](https://github.com/uzh-rpg/rpg_esim/wiki) for further details on the usage of other rendering engines.
 
+#### Test Set Making
 
-
-if your want to generate the test of val dataset,you can use the code below:
+if your want to generate the test of val dataset using blender 3.4 , you can use the code below:
 ```bash
 conda activate blender
 python <your_file_path>/bpy_render_views.py
 ```
-NOTE:Set the blender file path and render path is necessary!
+
+if your want to generate the test of val dataset using blender 4.0 , you can use the code below:
+```bash
+conda activate blender_$_0
+python <your_file_path>/bpy_render_views.py
+```
+ 
+NOTE:Set the blender file path and render path is necessary, and I strongly recommend using bash instead of compiling in blender software, because this may cause the software to crash
