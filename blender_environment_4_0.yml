@@ -16,6 +16,6 @@ dependencies:
   - pip=22.2.2
   - pyzmq=24.0.1
   - pip:
-    - https://github.com/SuperFCR/rpg_esim/releases/download/Released_v1.0/bpy-4.0.0-cp310-cp310-manylinux_2_28_x86_64.whl
+    - https://github.com/SuperFCR/rpg_esim/releases/download/v1.0/bpy-4.0.0-cp310-cp310-manylinux_2_28_x86_64.whl
 
 
